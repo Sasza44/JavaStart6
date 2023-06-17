@@ -42,7 +42,7 @@ public class First {
 				if(index == -1) {arr1[indFree] = Integer.valueOf(arr.substring(indLast + 1).trim());}
 				else {
 					arr1[indFree] = Integer.valueOf(arr.substring(indLast + 1, index).trim());
-					indFree += 1;
+					indFree += 1; 
 				}
 			}
 		}
@@ -54,7 +54,17 @@ public class First {
 	
 	static int getNextEl(int[] arr) { // перелік прикладів числових послідовностей, які вказані в задачі
 		int n1 = 0;
-		if(arr.length >= 3 && arr[arr.length - 1] - arr[arr.length - 2] == arr[arr.length - 2] - arr[arr.length - 3]) { // якщо арифметична прогресія
+		boolean b = false; // додатковий біт для виявлення неоднаковості різниці
+		for(int i = 1; i < arr.length; i++) {
+			if(arr[i] - arr[i - 1] != arr[1] - arr[0]) {
+				b = true;
+			}
+		}
+		if(arr.length >= 3 && b == false) { // якщо арифметична прогресія
+			
+		//if(arr.length >= 3 && arr[arr.length - 1] - arr[arr.length - 2] == arr[arr.length - 2] - arr[arr.length - 3] && arr[1] - arr[0] == arr[2] - arr[1] && 
+		//arr[3] - arr[2] == arr[2] - arr[1]) { // якщо арифметична прогресія
+		
 			n1 = 2 * arr[arr.length - 1] - arr[arr.length - 2];
 		}
 		else if(arr.length >= 3 && arr[0] == 1 && arr[1] == (int)Math.sqrt(arr[2])) { // якщо показникова функція
