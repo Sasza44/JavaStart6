@@ -54,24 +54,29 @@ public class First {
 	
 	static int getNextEl(int[] arr) { // перелік прикладів числових послідовностей, які вказані в задачі
 		int n1 = 0;
-		boolean b = false; // додатковий біт для виявлення неоднаковості різниці
+		
+		boolean b = false; // додатковий біт для виявлення неоднаковості різниці (для арифметичної прогресії)
 		for(int i = 1; i < arr.length; i++) {
 			if(arr[i] - arr[i - 1] != arr[1] - arr[0]) {
 				b = true;
 			}
 		}
-		if(arr.length >= 3 && b == false) { // якщо арифметична прогресія
-			
-		//if(arr.length >= 3 && arr[arr.length - 1] - arr[arr.length - 2] == arr[arr.length - 2] - arr[arr.length - 3] && arr[1] - arr[0] == arr[2] - arr[1] && 
-		//arr[3] - arr[2] == arr[2] - arr[1]) { // якщо арифметична прогресія
 		
+		boolean b1 = false; // додатковий біт для послідовності, у якій різниця зростає на одне і те саме число
+		int difference = arr[arr.length - 1] - 2 * arr[arr.length - 2] + arr[arr.length - 3];
+		for(int i = 2; i < arr.length; i++) {
+				if((arr[i] - arr[i - 1]) != (arr[i - 1] - arr[i - 2] + difference)) {
+					b1 = true;
+				}
+			}
+		
+		if(arr.length >= 3 && b == false) { // якщо арифметична прогресія
 			n1 = 2 * arr[arr.length - 1] - arr[arr.length - 2];
 		}
 		else if(arr.length >= 3 && arr[0] == 1 && arr[1] == (int)Math.sqrt(arr[2])) { // якщо показникова функція
 			n1 = (int)Math.pow(arr[1], arr.length);
 		}
-		else if(arr.length >= 4 && 3 * arr[2] + arr[0] == 3 * arr[1] + arr[3]) { // якщо різниця зростає на одне і те саме число
-			int difference = arr[2] - 2 * arr[1] + arr[0];
+		else if(arr.length >= 3 && b1 == false) { // якщо різниця зростає на одне і те саме число
 			n1 = 2 * arr[arr.length - 1] - arr[arr.length - 2] + difference;
 		}
 		else if(arr.length >= 3 && arr[1] == 8 && arr[2] == 27) { // якщо кубічна степенева функція
