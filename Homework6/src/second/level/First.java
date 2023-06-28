@@ -55,32 +55,44 @@ public class First {
 	static int getNextEl(int[] arr) { // перелік прикладів числових послідовностей, які вказані в задачі
 		int n1 = 0;
 		
-		boolean b = false; // додатковий біт для виявлення неоднаковості різниці (для арифметичної прогресії)
+		// перевірка кожного елементу на належність до одного з прикладів послідовностей
+		boolean b1 = false; // додатковий біт для виявлення неоднаковості різниці (для арифметичної прогресії)
 		for(int i = 1; i < arr.length; i++) {
-			if(arr[i] - arr[i - 1] != arr[1] - arr[0]) {
-				b = true;
-			}
+			if(arr[i] - arr[i - 1] != arr[1] - arr[0]) {b1 = true;}
 		}
 		
-		boolean b1 = false; // додатковий біт для послідовності, у якій різниця зростає на одне і те саме число
+		boolean b2 = false; // додатковий біт для перевірки кожного елементу на належність до показникової функції 
+		for(int i = 0; i < arr.length; i++) {
+			if(arr[i] != (int)Math.pow(2, i)) {b2 = true;}
+		}
+		
+		boolean b3 = false; // додатковий біт для послідовності, у якій різниця зростає на одне і те саме число
 		int difference = arr[arr.length - 1] - 2 * arr[arr.length - 2] + arr[arr.length - 3];
 		for(int i = 2; i < arr.length; i++) {
-				if((arr[i] - arr[i - 1]) != (arr[i - 1] - arr[i - 2] + difference)) {
-					b1 = true;
-				}
+				if((arr[i] - arr[i - 1]) != (arr[i - 1] - arr[i - 2] + difference)) {b3 = true;}
 			}
 		
-		if(arr.length >= 3 && b == false) { // якщо арифметична прогресія
+		boolean b4 = false; // додатковий біт для перевірки кожного елементу на належність до степеневої функції
+		for(int i = 0; i < arr.length; i++) {
+			if(arr[i] != (int)Math.pow(i + 1, 3)) {b4 = true;}
+		}
+		
+		// розрахунок наступного елементу в залежності від того, якому зразку послідовність відповідає
+		if(arr.length >= 3 && b1 == false) { // якщо арифметична прогресія
 			n1 = 2 * arr[arr.length - 1] - arr[arr.length - 2];
+			//System.out.println(1);
 		}
-		else if(arr.length >= 3 && arr[0] == 1 && arr[1] == (int)Math.sqrt(arr[2])) { // якщо показникова функція
-			n1 = (int)Math.pow(arr[1], arr.length);
+		else if(arr.length >= 3 && b2 == false) { // якщо показникова функція з основою 2
+			n1 = (int)Math.pow(2, arr.length);
+			//System.out.println(2);
 		}
-		else if(arr.length >= 3 && b1 == false) { // якщо різниця зростає на одне і те саме число
+		else if(arr.length >= 3 && b3 == false) { // якщо різниця зростає на одне і те саме число
 			n1 = 2 * arr[arr.length - 1] - arr[arr.length - 2] + difference;
+			//System.out.println(3);
 		}
-		else if(arr.length >= 3 && arr[1] == 8 && arr[2] == 27) { // якщо кубічна степенева функція
+		else if(arr.length >= 3 && b4 == false) { // якщо кубічна степенева функція
 			n1 = (int)Math.pow(arr.length + 1, 3);
+			//System.out.println(4);
 		}
 		return n1;
 	}
