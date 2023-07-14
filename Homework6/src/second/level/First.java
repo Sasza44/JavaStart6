@@ -67,17 +67,16 @@ public class First {
 				if((arr[i] - arr[i - 1]) != (arr[i - 1] - arr[i - 2] + difference)) {b3 = true;}
 			}
 		boolean b4 = false; // додатковий біт для перевірки кожного елементу на належність до кубічної степеневої функції
-		boolean b5 = false; // додатковий біт для перевірки кожного елементу на належність до послідовності, у якій наступний елемент удвічі більший попереднього
 		for(int i = 0; i < arr.length; i++) {
 			if(arr[i] != (int)Math.pow(i + 1, 3)) {b4 = true;}
-		}                   // розрахунок наступного елементу в залежності від того, якому зразку послідовність відповідає
-		if(arr.length >= 3 && b1 == false) { // якщо арифметична прогресія
-			n1 = 2 * arr[arr.length - 1] - arr[arr.length - 2];
 		}
+		boolean b5 = false; // додатковий біт для перевірки кожного елементу на належність до послідовності, у якій наступний елемент удвічі більший попереднього
+		for(int i = 1; i < arr.length; i++) {
+			if(arr[i] != arr[i - 1] * 2) {b5 = true;}
+		}		// розрахунок наступного елементу в залежності від того, якому зразку послідовність відповідає
+		if(arr.length >= 3 && b1 == false) {n1 = 2 * arr[arr.length - 1] - arr[arr.length - 2];} // якщо арифметична прогресія
 		else if(arr.length >= 3 && b2 == false) {n1 = (int)Math.pow(3, arr.length);} // якщо показникова функція з основою 3
-		else if(arr.length >= 3 && b3 == false) { // якщо різниця зростає на одне і те саме число
-			n1 = 2 * arr[arr.length - 1] - arr[arr.length - 2] + difference;
-		}
+		else if(arr.length >= 3 && b3 == false) {n1 = 2 * arr[arr.length - 1] - arr[arr.length - 2] + difference;}  // якщо різниця зростає на одне і те саме число
 		else if(arr.length >= 3 && b4 == false) {n1 = (int)Math.pow(arr.length + 1, 3);} // якщо кубічна степенева функція
 		else if(arr.length >= 3 && b5 == false) {n1 = arr[arr.length - 1] * 2;} // якщо наступний елемент удвічі більший попереднього
 		return n1;
